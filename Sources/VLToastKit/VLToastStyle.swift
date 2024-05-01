@@ -10,13 +10,13 @@ public struct VLToastStyle: Sendable
  public private(set) var titleColor: Color
  public private(set) var titleFont: Font
  
- init(backgroundColor: Color = .white,
-      color: Color = .black,
-      messageColor: Color = .black.opacity(0.75),
-      messageFont: Font = .system(size: 12),
-      symbolName: String = "circle.fill",
-      titleColor: Color = .black,
-      titleFont: Font = .system(size: 14, weight: .semibold))
+ public init(backgroundColor: Color = .white,
+             color: Color = .black,
+             messageColor: Color = .black.opacity(0.75),
+             messageFont: Font = .system(size: 12),
+             symbolName: String = "circle.fill",
+             titleColor: Color = .black,
+             titleFont: Font = .system(size: 14, weight: .semibold))
  {
   self.backgroundColor = backgroundColor
   self.color = color
@@ -27,19 +27,19 @@ public struct VLToastStyle: Sendable
   self.titleFont = titleFont
  }
  
- func copy() -> VLToastStyle
+ public func copy() -> VLToastStyle
  {
   let result = self
   return result
  }
  
- func adjustedCopy(backgroundColor: Color? = nil,
-                   color: Color? = nil,
-                   messageColor: Color? = nil,
-                   messageFont: Font? = nil,
-                   symbolName: String? = nil,
-                   titleColor: Color? = nil,
-                   titleFont: Font? = nil) -> VLToastStyle
+ public func adjustedCopy(backgroundColor: Color? = nil,
+                          color: Color? = nil,
+                          messageColor: Color? = nil,
+                          messageFont: Font? = nil,
+                          symbolName: String? = nil,
+                          titleColor: Color? = nil,
+                          titleFont: Font? = nil) -> VLToastStyle
  {
   var result = self
   
