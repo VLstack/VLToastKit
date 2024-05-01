@@ -58,8 +58,8 @@ public struct VLToastStyle: Sendable
 // MARK: - default styles
 extension VLToastStyle
 {
- static let dangerStyle: VLToastStyle = .init(color: .red, symbolName: "xmark.circle.fill")
- static let infoStyle: VLToastStyle = .init(color: .blue, symbolName: "info.circle.fill")
- static let successStyle: VLToastStyle = .init(color: .green, symbolName: "checkmark.circle.fill")
- static let warningStyle: VLToastStyle = .init(color: .orange, symbolName: "exclamationmark.triangle.fill")
+ public static let dangerStyle: VLToastStyle = .init(color: .red, symbolName: "xmark.circle.fill")
+ public static let infoStyle: VLToastStyle = .init(color: .blue, symbolName: "info.circle.fill")
+ public static let successStyle: VLToastStyle = .init(color: .green, symbolName: "checkmark.circle.fill")
+ public static let warningStyle: VLToastStyle = .init(color: .orange, symbolName: "exclamationmark.triangle.fill")
 }
