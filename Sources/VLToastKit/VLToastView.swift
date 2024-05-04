@@ -9,7 +9,7 @@ struct VLToastView: View
  {
   VStack(alignment: .leading)
   {
-   HStack(alignment: .top)
+   HStack(alignment: .firstTextBaseline)
    {
     Image(systemName: toast.type.style.symbolName)
      .foregroundStyle(toast.type.style.color)
