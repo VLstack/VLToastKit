@@ -1,24 +1,64 @@
 import Foundation
+import SwiftUI
 
 public struct VLToast: Identifiable
 {
  public let id: String = UUID().uuidString
  
  let type: VLToastType
- let title: String?
- let message: String
+ let title: LocalizedStringKey?
+ let message: LocalizedStringKey
  let duration: Double?
  let onDismiss: () -> Void
  
  public init(type: VLToastType, 
-             title: String? = nil,
-             message: String,
+             title: LocalizedStringKey? = nil,
+             message: LocalizedStringKey,
              duration: Double? = 1,
              onDismiss: @escaping () -> Void = {})
  {
   self.type = type
   self.title = title
   self.message = message
+  self.duration = duration
+  self.onDismiss = onDismiss
+ }
+
+ public init(type: VLToastType,
+             title: String? = nil,
+             message: String,
+             duration: Double? = 1,
+             onDismiss: @escaping () -> Void = {})
+ {
+  self.type = type
+  self.title = title == nil ? nil : LocalizedStringKey(title!)
+  self.message = LocalizedStringKey(message)
+  self.duration = duration
+  self.onDismiss = onDismiss
+ }
+
+ public init(type: VLToastType,
+             title: String? = nil,
+             message: LocalizedStringKey,
+             duration: Double? = 1,
+             onDismiss: @escaping () -> Void = {})
+ {
+  self.type = type
+  self.title = title == nil ? nil : LocalizedStringKey(title!)
+  self.message = message
+  self.duration = duration
+  self.onDismiss = onDismiss
+ }
+
+ public init(type: VLToastType,
+             title: LocalizedStringKey? = nil,
+             message: String,
+             duration: Double? = 1,
+             onDismiss: @escaping () -> Void = {})
+ {
+  self.type = type
+  self.title = title
+  self.message = LocalizedStringKey(message)
   self.duration = duration
   self.onDismiss = onDismiss
  }
