@@ -36,32 +36,6 @@ public struct VLToast: Identifiable
   self.duration = duration
   self.onDismiss = onDismiss
  }
-
- public init(type: VLToastType,
-             title: String? = nil,
-             message: LocalizedStringKey,
-             duration: Double? = 1,
-             onDismiss: @escaping () -> Void = {})
- {
-  self.type = type
-  self.title = title == nil ? nil : LocalizedStringKey(title!)
-  self.message = message
-  self.duration = duration
-  self.onDismiss = onDismiss
- }
-
- public init(type: VLToastType,
-             title: LocalizedStringKey? = nil,
-             message: String,
-             duration: Double? = 1,
-             onDismiss: @escaping () -> Void = {})
- {
-  self.type = type
-  self.title = title
-  self.message = LocalizedStringKey(message)
-  self.duration = duration
-  self.onDismiss = onDismiss
- }
 }
 
 // MARK: - Equatable
