@@ -12,7 +12,5 @@ let package = Package(name: "VLToastKit",
                       ],
                       targets:
                       [
-                       .target(name: "VLToastKit"),
-                       .testTarget(name: "VLToastKitTests",
-                                   dependencies: ["VLToastKit"])
+                       .target(name: "VLToastKit")
                       ])
