@@ -12,11 +12,10 @@ let package = Package(name: "VLToastKit",
                       ],
                       dependencies:
                       [
-                       .package(url: "https://github.com/VLstack/VLstackNamespace", from: "1.2.0"),
                        .package(url: "https://github.com/VLstack/VLDurationKit", from: "1.0.0")
                       ],
                       targets:
                       [
                        .target(name: "VLToastKit",
-                               dependencies: [ "VLstackNamespace", "VLDurationKit" ])
+                               dependencies: [ "VLDurationKit" ])
                       ])

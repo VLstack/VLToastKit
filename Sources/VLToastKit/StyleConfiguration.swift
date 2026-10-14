@@ -1,7 +1,6 @@
-import VLstackNamespace
 import SwiftUI
 
-extension VLstack.Toast
+extension VLToast
 {
  public struct StyleConfiguration
  {
@@ -11,7 +10,7 @@ extension VLstack.Toast
    public var body: AnyView
   }
 
-  public let type: VLstack.Toast.ItemType
+  public let type: VLToast.ItemType
   public let message: Self.Message
   public let onDismiss: @MainActor () -> Void
  }

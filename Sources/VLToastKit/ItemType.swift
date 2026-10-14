@@ -1,6 +1,4 @@
-import VLstackNamespace
-
-extension VLstack.Toast
+extension VLToast
 {
  public enum ItemType: Int, Identifiable
  {

@@ -1,27 +1,26 @@
-import VLstackNamespace
 import VLDurationKit
 import Foundation
 import SwiftUI
 
-extension VLstack.Toast
+extension VLToast
 {
  public struct Item: Identifiable, Equatable
  {
-  public static func == (lhs: VLstack.Toast.Item,
-                         rhs: VLstack.Toast.Item) -> Bool
+  public static func == (lhs: VLToast.Item,
+                         rhs: VLToast.Item) -> Bool
   {
    lhs.id == rhs.id
   }
 
   public let id: UUID
-  public let type: VLstack.Toast.ItemType
+  public let type: VLToast.ItemType
   public let message: String
   public let duration: TimeInterval?
   public let feedback: UIImpactFeedbackGenerator.FeedbackStyle?
   public let onDismiss: @MainActor () -> Void
 
   public init(message: String,
-              type: VLstack.Toast.ItemType = .info,
+              type: VLToast.ItemType = .info,
               duration: TimeInterval? = 2.seconds,
               feedback: UIImpactFeedbackGenerator.FeedbackStyle? = nil,
               onDismiss: @escaping @MainActor () -> Void = {})

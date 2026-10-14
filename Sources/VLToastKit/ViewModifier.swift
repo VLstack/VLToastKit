@@ -1,8 +1,7 @@
-import VLstackNamespace
 import SwiftUI
 import UIKit
 
-extension VLstack.Toast
+extension VLToast
 {
  public struct VLModifier: ViewModifier
  {
@@ -12,7 +11,7 @@ extension VLstack.Toast
   private let offsetY: CGFloat
 
   @State private var workItem: DispatchWorkItem?
-  @State private var toastManager = VLstack.Toast.Manager()
+  @State private var toastManager = VLToast.Manager()
 
   public init(alignment: Alignment)
   {
@@ -38,15 +37,15 @@ extension VLstack.Toast
       VStack
       {
        toastStyle
-        .makeBody(configuration: VLstack.Toast.StyleConfiguration(type: toast.type,
-                                                                  message: .init(content: Text(verbatim: toast.message)),
-                                                                  onDismiss: dismiss))
+        .makeBody(configuration: VLToast.StyleConfiguration(type: toast.type,
+                                                            message: .init(content: Text(verbatim: toast.message)),
+                                                            onDismiss: dismiss))
         .offset(y: offsetY)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)
       .transition(alignment == .top ? .move(edge: .top)
-                  : alignment == .center ? .identity
-                  : .move(edge: .bottom))
+                                    : alignment == .center ? .identity
+                                                           : .move(edge: .bottom))
      }
      .animation(.spring(), value: toast)
     }
@@ -93,6 +92,6 @@ extension View
 {
  public func toast(alignment: Alignment = .top) -> some View
  {
-  self.modifier(VLstack.Toast.VLModifier(alignment: alignment))
+  self.modifier(VLToast.VLModifier(alignment: alignment))
  }
 }

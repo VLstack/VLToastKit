@@ -1,19 +1,18 @@
-import VLstackNamespace
 import SwiftUI
 
-public extension VLstack.Toast.Style where Self == VLstack.Toast.DefaultStyle
+public extension VLToast.Style where Self == VLToast.DefaultStyle
 {
  static var `default`: Self { .init() }
 }
 
-extension VLstack.Toast
+extension VLToast
 {
- public struct DefaultStyle: @preconcurrency VLstack.Toast.Style
+ public struct DefaultStyle: @preconcurrency VLToast.Style
  {
   @MainActor
   public func makeBody(configuration: Configuration) -> some View
   {
-   VLstack.Toast.DefaultStyleView(configuration: configuration)
+   VLToast.DefaultStyleView(configuration: configuration)
   }
  }
 }

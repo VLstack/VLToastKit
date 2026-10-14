@@ -1,16 +1,15 @@
-import VLstackNamespace
 import SwiftUI
 
-extension VLstack.Toast
+extension VLToast
 {
  internal struct StyleKey: @preconcurrency EnvironmentKey
  {
-  @MainActor static let defaultValue = VLstack.Toast.AnyStyle(style: VLstack.Toast.DefaultStyle())
+  @MainActor static let defaultValue = VLToast.AnyStyle(style: VLToast.DefaultStyle())
  }
 
  internal struct ManagerKey: @preconcurrency EnvironmentKey
  {
-  @MainActor static let defaultValue = VLstack.Toast.Manager()
+  @MainActor static let defaultValue = VLToast.Manager()
  }
 
  internal struct FontMessageKey: EnvironmentKey
@@ -49,60 +48,61 @@ extension VLstack.Toast
  }
 }
 
+// TODO: à vérifier mais je crois qu'il existe une notation plus récente de faire ça
 extension EnvironmentValues
 {
- public var toastStyle: VLstack.Toast.AnyStyle
+ public var toastStyle: VLToast.AnyStyle
  {
-  get { self[VLstack.Toast.StyleKey.self] }
-  set { self[VLstack.Toast.StyleKey.self] = newValue }
+  get { self[VLToast.StyleKey.self] }
+  set { self[VLToast.StyleKey.self] = newValue }
  }
 
- public var toastManager: VLstack.Toast.Manager
+ public var toastManager: VLToast.Manager
  {
-  get { self[VLstack.Toast.ManagerKey.self] }
-  set { self[VLstack.Toast.ManagerKey.self] = newValue }
+  get { self[VLToast.ManagerKey.self] }
+  set { self[VLToast.ManagerKey.self] = newValue }
  }
 
  public var toastMessageFont: Font
  {
-  get { self[VLstack.Toast.FontMessageKey.self] }
-  set { self[VLstack.Toast.FontMessageKey.self] = newValue }
+  get { self[VLToast.FontMessageKey.self] }
+  set { self[VLToast.FontMessageKey.self] = newValue }
  }
 
  public var toastMessageColor: Color
  {
-  get { self[VLstack.Toast.ColorMessageKey.self] }
-  set { self[VLstack.Toast.ColorMessageKey.self] = newValue }
+  get { self[VLToast.ColorMessageKey.self] }
+  set { self[VLToast.ColorMessageKey.self] = newValue }
  }
 
  public var toastBackgroundColor: Color
  {
-  get { self[VLstack.Toast.ColorBackgroundKey.self] }
-  set { self[VLstack.Toast.ColorBackgroundKey.self] = newValue }
+  get { self[VLToast.ColorBackgroundKey.self] }
+  set { self[VLToast.ColorBackgroundKey.self] = newValue }
  }
 
  public var toastSuccessColor: Color
  {
-  get { self[VLstack.Toast.ColorSuccessKey.self] }
-  set { self[VLstack.Toast.ColorSuccessKey.self] = newValue }
+  get { self[VLToast.ColorSuccessKey.self] }
+  set { self[VLToast.ColorSuccessKey.self] = newValue }
  }
 
  public var toastInfoColor: Color
  {
-  get { self[VLstack.Toast.ColorInfoKey.self] }
-  set { self[VLstack.Toast.ColorInfoKey.self] = newValue }
+  get { self[VLToast.ColorInfoKey.self] }
+  set { self[VLToast.ColorInfoKey.self] = newValue }
  }
 
  public var toastWarningColor: Color
  {
-  get { self[VLstack.Toast.ColorWarningKey.self] }
-  set { self[VLstack.Toast.ColorWarningKey.self] = newValue }
+  get { self[VLToast.ColorWarningKey.self] }
+  set { self[VLToast.ColorWarningKey.self] = newValue }
  }
 
  public var toastDangerColor: Color
  {
-  get { self[VLstack.Toast.ColorDangerKey.self] }
-  set { self[VLstack.Toast.ColorDangerKey.self] = newValue }
+  get { self[VLToast.ColorDangerKey.self] }
+  set { self[VLToast.ColorDangerKey.self] = newValue }
  }
 }
 

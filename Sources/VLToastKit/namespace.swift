@@ -1,6 +1,1 @@
-import VLstackNamespace
-
-extension VLstack
-{
- public enum Toast {}
-}
+public enum VLToast {}

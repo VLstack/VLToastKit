@@ -1,7 +1,6 @@
-import VLstackNamespace
 import SwiftUI
 
-extension VLstack.Toast
+extension VLToast
 {
  internal struct DefaultStyleView: View
  {
@@ -13,7 +12,7 @@ extension VLstack.Toast
   @Environment(\.toastWarningColor) private var warningColor
   @Environment(\.toastDangerColor) private var dangerColor
 
-  internal let configuration: VLstack.Toast.StyleConfiguration
+  internal let configuration: VLToast.StyleConfiguration
 
   private let dragThreshold: CGFloat = 30
   private let opacityMaxDistance: CGFloat = 120
@@ -97,10 +96,10 @@ extension VLstack.Toast
  }
 }
 
-private extension VLstack.Toast.DefaultStyleView
+private extension VLToast.DefaultStyleView
 {
  // MARK: - Functions
- func foregroundStyle(_ type: VLstack.Toast.ItemType) -> Color
+ func foregroundStyle(_ type: VLToast.ItemType) -> Color
  {
   switch type
   {
@@ -111,7 +110,7 @@ private extension VLstack.Toast.DefaultStyleView
   }
  }
 
- func icon(_ type: VLstack.Toast.ItemType) -> Image
+ func icon(_ type: VLToast.ItemType) -> Image
  {
   switch type
   {

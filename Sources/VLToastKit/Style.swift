@@ -1,20 +1,19 @@
-import VLstackNamespace
 import SwiftUI
 
-extension VLstack.Toast
+extension VLToast
 {
  public protocol Style
  {
   associatedtype Body: View
-  typealias Configuration = VLstack.Toast.StyleConfiguration
+  typealias Configuration = VLToast.StyleConfiguration
   func makeBody(configuration: Self.Configuration) -> Self.Body
  }
 
- public struct AnyStyle: VLstack.Toast.Style
+ public struct AnyStyle: VLToast.Style
  {
   internal var _makeßody: (Configuration) -> AnyView
 
-  public init<S: VLstack.Toast.Style>(style: S)
+  public init<S: VLToast.Style>(style: S)
   {
    _makeßody = { configuration in AnyView(style.makeBody(configuration: configuration)) }
   }
@@ -28,8 +27,8 @@ extension VLstack.Toast
 
 extension View
 {
- public func toastStyle<S: VLstack.Toast.Style>(_ style: S) -> some View
+ public func toastStyle<S: VLToast.Style>(_ style: S) -> some View
  {
-  self.environment(\.toastStyle, VLstack.Toast.AnyStyle(style: style))
+  self.environment(\.toastStyle, VLToast.AnyStyle(style: style))
  }
 }

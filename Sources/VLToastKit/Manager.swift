@@ -1,19 +1,18 @@
-import VLstackNamespace
 import Foundation
 import Observation
 import VLDurationKit
 import UIKit
 
-extension VLstack.Toast
+extension VLToast
 {
  @MainActor
  @Observable
  public final class Manager
  {
-  public var current: VLstack.Toast.Item? = nil
+  public var current: VLToast.Item? = nil
 
   internal func show(message: String,
-                     type: VLstack.Toast.ItemType,
+                     type: VLToast.ItemType,
                      duration: TimeInterval?,
                      feedback: UIImpactFeedbackGenerator.FeedbackStyle?,
                      onDismiss: @escaping @MainActor () -> Void = {})
