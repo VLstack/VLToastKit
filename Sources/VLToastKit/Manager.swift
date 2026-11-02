@@ -1,6 +1,5 @@
 import Foundation
 import Observation
-import VLDurationKit
 import UIKit
 
 extension VLToast
@@ -25,7 +24,7 @@ extension VLToast
   }
 
   public func success(_ message: String,
-                      duration: TimeInterval? = 2.seconds,
+                      duration: TimeInterval? = 2,
                       feedback: UIImpactFeedbackGenerator.FeedbackStyle? = nil,
                       onDismiss: @escaping @MainActor () -> Void = {})
   {
@@ -37,7 +36,7 @@ extension VLToast
   }
 
   public func danger(_ message: String,
-                     duration: TimeInterval? = 5.seconds,
+                     duration: TimeInterval? = 5,
                      feedback: UIImpactFeedbackGenerator.FeedbackStyle? = nil,
                      onDismiss: @escaping @MainActor () -> Void = {})
   {
@@ -60,7 +59,7 @@ extension VLToast
   }
 
   public func info(_ message: String,
-                   duration: TimeInterval? = 2.seconds,
+                   duration: TimeInterval? = 2,
                    feedback: UIImpactFeedbackGenerator.FeedbackStyle? = nil,
                    onDismiss: @escaping @MainActor () -> Void = {})
   {
@@ -72,7 +71,7 @@ extension VLToast
   }
 
   public func warning(_ message: String,
-                      duration: TimeInterval? = 3.seconds,
+                      duration: TimeInterval? = 3,
                       feedback: UIImpactFeedbackGenerator.FeedbackStyle? = nil,
                       onDismiss: @escaping @MainActor () -> Void = {})
   {

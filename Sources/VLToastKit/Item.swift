@@ -1,4 +1,3 @@
-import VLDurationKit
 import Foundation
 import SwiftUI
 
@@ -21,7 +20,7 @@ extension VLToast
 
   public init(message: String,
               type: VLToast.ItemType = .info,
-              duration: TimeInterval? = 2.seconds,
+              duration: TimeInterval? = 2,
               feedback: UIImpactFeedbackGenerator.FeedbackStyle? = nil,
               onDismiss: @escaping @MainActor () -> Void = {})
   {
