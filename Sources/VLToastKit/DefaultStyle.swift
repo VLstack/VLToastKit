@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 public extension VLToast.Style where Self == VLToast.DefaultStyle
 {

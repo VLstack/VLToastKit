@@ -11,10 +11,9 @@ extension VLToast
    case bottom
   }
 
-  @Environment(\.toastStyle) private var toastStyle
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
-  @State private var toastManager = VLToast.Manager()
+  @Environment(\.toastStyle) private var toastStyle
+  @Environment(VLToast.Manager.self) private var toastManager
 
   private let alignment: Alignment
   private let placement: Placement
@@ -32,7 +31,6 @@ extension VLToast
   internal func body(content: Content) -> some View
   {
    content
-   .environment(\.toastManager, toastManager)
    .overlay(alignment: alignment)
    {
     VStack(spacing: 8)
@@ -41,7 +39,7 @@ extension VLToast
      {
       item in
       VLToast.ItemView(item: item,
-                       style: toastStyle,
+                       style: toastStyle ?? VLToast.AnyStyle(VLToast.DefaultStyle()),
                        swipeDirection: placement == .bottom ? 1 : -1,
                        dismiss: { toastManager.dismiss(id: item.id) })
        .transition(transition)

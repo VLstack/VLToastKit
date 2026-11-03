@@ -19,6 +19,8 @@ extension VLToast
 
   @ObservationIgnored private var timers: [UUID: Task<Void, Never>] = [:]
 
+  public init() {}
+
   internal func show(message: String,
                      type: VLToast.ItemType,
                      duration: TimeInterval?,
