@@ -2,6 +2,7 @@ import SwiftUI
 
 extension VLToast
 {
+ /// What a style receives to draw one toast
  public struct StyleConfiguration
  {
   public struct Message: View
@@ -12,6 +13,5 @@ extension VLToast
 
   public let type: VLToast.ItemType
   public let message: Self.Message
-  public let onDismiss: @MainActor () -> Void
  }
 }

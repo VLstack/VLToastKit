@@ -1,90 +1,106 @@
 import SwiftUI
-import UIKit
 
 extension VLToast
 {
- public struct VLModifier: ViewModifier
+ internal struct Modifier: ViewModifier
  {
-  @Environment(\.toastStyle) private var toastStyle
-
-  private let alignment: Alignment
-  private let offsetY: CGFloat
-
-  @State private var workItem: DispatchWorkItem?
-  @State private var toastManager = VLToast.Manager()
-
-  public init(alignment: Alignment)
+  private enum Placement
   {
-   self.alignment = alignment
-   switch alignment
-   {
-    case .top:    offsetY = 40
-    case .center: offsetY = 0
-    default:      offsetY = -40
-   }
+   case top
+   case center
+   case bottom
   }
 
-  public func body(content: Content) -> some View
+  @Environment(\.toastStyle) private var toastStyle
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+  @State private var toastManager = VLToast.Manager()
+
+  private let alignment: Alignment
+  private let placement: Placement
+  /// Kept from 3.x: room between the stack and the edge of the screen
+  private let edgeInset: CGFloat = 40
+
+  internal init(alignment: Alignment)
+  {
+   self.alignment = alignment
+   if alignment.vertical == .bottom { placement = .bottom }
+   else if alignment.vertical == .center { placement = .center }
+   else { placement = .top }
+  }
+
+  internal func body(content: Content) -> some View
   {
    content
    .environment(\.toastManager, toastManager)
-   .overlay
+   .overlay(alignment: alignment)
    {
-    if let toast = toastManager.current
+    VStack(spacing: 8)
     {
-     ZStack
+     ForEach(orderedItems)
      {
-      VStack
-      {
-       toastStyle
-        .makeBody(configuration: VLToast.StyleConfiguration(type: toast.type,
-                                                            message: .init(content: Text(verbatim: toast.message)),
-                                                            onDismiss: dismiss))
-        .offset(y: offsetY)
-      }
-      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)
-      .transition(alignment == .top ? .move(edge: .top)
-                                    : alignment == .center ? .identity
-                                                           : .move(edge: .bottom))
+      item in
+      VLToast.ItemView(item: item,
+                       style: toastStyle,
+                       swipeDirection: placement == .bottom ? 1 : -1,
+                       dismiss: { toastManager.dismiss(id: item.id) })
+       .transition(transition)
      }
-     .animation(.spring(), value: toast)
     }
+    .padding(.horizontal, 16)
+    .padding(edge, edgeInset)
+    .animation(animation, value: toastManager.items)
    }
-   .onChange(of: toastManager.current, show)
-  }
-
-  internal func show()
-  {
-   workItem?.cancel()
-
-   guard let toast = toastManager.current else { return }
-
-   if let feedback = toast.feedback
+   .sensoryFeedback(trigger: toastManager.latest) { $1?.feedback }
+   .onChange(of: toastManager.latest)
    {
-    UIImpactFeedbackGenerator(style: feedback).impactOccurred()
+    _, newValue in
+    guard let newValue else { return }
+    AccessibilityNotification.Announcement(newValue.message).post()
    }
-
-   guard let duration: TimeInterval = toast.duration,
-         duration > 0
-   else { return }
-
-   let task = DispatchWorkItem { dismiss() }
-   workItem = task
-   DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: workItem!)
   }
+ }
+}
 
-  internal func dismiss()
+private extension VLToast.Modifier
+{
+ // MARK: - Properties
+ /// The newest toast is always the closest to the edge
+ var orderedItems: [VLToast.Item]
+ {
+  switch placement
   {
-   let onDismiss = toastManager.current?.onDismiss
-   withAnimation { toastManager.current = nil }
-
-   workItem?.cancel()
-   workItem = nil
-   if let onDismiss
-   {
-    DispatchQueue.main.async(execute: DispatchWorkItem { onDismiss() })
-   }
+   case .top, .center: toastManager.items
+   case .bottom: toastManager.items.reversed()
   }
+ }
+
+ var edge: Edge.Set
+ {
+  switch placement
+  {
+   case .top: .top
+   case .center: []
+   case .bottom: .bottom
+  }
+ }
+
+ var transition: AnyTransition
+ {
+  if reduceMotion { return .opacity }
+
+  switch placement
+  {
+   case .top: return .move(edge: .top).combined(with: .opacity)
+   case .center: return .scale(scale: 0.8).combined(with: .opacity)
+   case .bottom: return .move(edge: .bottom).combined(with: .opacity)
+  }
+ }
+
+ var animation: Animation
+ {
+  reduceMotion ? .easeInOut(duration: 0.2)
+               : .spring(duration: 0.4, bounce: 0.2)
  }
 }
 
@@ -92,6 +108,6 @@ extension View
 {
  public func toast(alignment: Alignment = .top) -> some View
  {
-  self.modifier(VLToast.VLModifier(alignment: alignment))
+  self.modifier(VLToast.Modifier(alignment: alignment))
  }
 }

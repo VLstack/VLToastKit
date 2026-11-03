@@ -2,25 +2,28 @@ import SwiftUI
 
 extension VLToast
 {
+ /// Appearance of a toast, like `ButtonStyle`: the style only draws the toast,
+ /// the stack handles position, gestures, animation, sensory feedback and accessibility
+ @MainActor
  public protocol Style
  {
   associatedtype Body: View
   typealias Configuration = VLToast.StyleConfiguration
-  func makeBody(configuration: Self.Configuration) -> Self.Body
+  @ViewBuilder func makeBody(configuration: Self.Configuration) -> Self.Body
  }
 
- public struct AnyStyle: VLToast.Style
+ internal struct AnyStyle: VLToast.Style
  {
-  internal var _makeßody: (Configuration) -> AnyView
+  private let makeBodyClosure: (Configuration) -> AnyView
 
-  public init<S: VLToast.Style>(style: S)
+  internal init<S: VLToast.Style>(_ style: S)
   {
-   _makeßody = { configuration in AnyView(style.makeBody(configuration: configuration)) }
+   makeBodyClosure = { AnyView(style.makeBody(configuration: $0)) }
   }
 
-  public func makeBody(configuration: Configuration) -> some View
+  internal func makeBody(configuration: Configuration) -> some View
   {
-   _makeßody(configuration)
+   makeBodyClosure(configuration)
   }
  }
 }
@@ -29,6 +32,6 @@ extension View
 {
  public func toastStyle<S: VLToast.Style>(_ style: S) -> some View
  {
-  self.environment(\.toastStyle, VLToast.AnyStyle(style: style))
+  self.environment(\.toastStyle, VLToast.AnyStyle(style))
  }
 }
